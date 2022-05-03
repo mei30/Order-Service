@@ -50,10 +50,13 @@ export class OrderService implements OnModuleInit {
     order.productId = product.data.id;
     order.userId = data.userId;
 
-    await this.repository.save(order);
+    const savedOrder = await this.repository.save(order);
 
     const decreasedStockData: DecreaseStockResponse = await firstValueFrom(
-      this.productSvc.decreaseStock({ id: data.productId, orderId: order.id }),
+      this.productSvc.decreaseStock({
+        id: data.productId,
+        orderId: savedOrder.id,
+      }),
     );
 
     if (decreasedStockData.status === HttpStatus.CONFLICT) {

@@ -13,7 +13,7 @@ import { OrderModule } from './order/order.module';
       database: 'micro_order',
       username: 'postgres',
       password: '4040',
-      entities: ['dist/**/*.entity.{ts,js}'],
+      autoLoadEntities: true,
       synchronize: true, // never true in production!
     }),
     OrderModule,
